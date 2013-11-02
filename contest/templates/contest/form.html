@@ -1,0 +1,24 @@
+{% extends "core/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<h3>Zapisy na {{ contest.name }}</h3>
+<div class="row-fluid">
+  <div class="span12">
+    <form class="form form-horizontal" method="POST" action=".">
+    <a name="zapisy"></a>
+        {% csrf_token %}
+        {{ form|crispy }}
+        <div class="control-group">
+        <div class="controls">
+          <input type="submit" class="btn btn-success" value="Zapisz!">
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}
+{% block registrationactive %}
+class='active'
+{% endblock %}

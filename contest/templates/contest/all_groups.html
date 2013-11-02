@@ -1,0 +1,46 @@
+{% extends "core/base.html" %}
+
+
+{% block title %}{{ contest.name }} - Lista zawodników {% endblock %}
+
+{% block content %}
+<a name="lista"></a>
+<h3>{{ contest.name }} - Lista zawodników</h3>
+{% if user.is_staff %}
+<p class="pull-right">
+<a href="{% url 'create_csv_list' contest.pk %}">
+  <button class="btn btn-primary">Eksportuj listę do CSV</button>
+</a>
+</p>
+{% endif %}
+{% for group in contest.group_set.all %}
+
+<span>{{ group.name }} <strong>{{ group.contestants_count }}/{{ group.capacity}}</strong></span>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th style="width: 25%">Imię</th>
+            <th style="width: 20%">Nazwisko</th>
+	    <th style="width: 20%">Wiek</th>
+            <th style="width: 20%">Klub/Sponsor</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for person in group.contestant_set.all %}
+        <tr>
+            <td>{{ person.first_name }}</td>
+            <td>{{ person.surname }}</td>
+            <td>{% if person.age %}{{ person.age }}{% else %} Brak danych {% endif %}</td>
+            <td>{{ person.sponsor }}</td>
+        </tr>
+        {% endfor %}
+</table>
+
+
+{% endfor %}
+
+
+{% endblock %}
+{% block listactive %}
+class='active'
+{% endblock %}

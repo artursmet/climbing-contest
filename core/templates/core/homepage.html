@@ -1,0 +1,24 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+  <h1>{{ contest.name }}</h1>
+  <div>
+    {% autoescape off %}
+      {{ contest.description }}
+    {% endautoescape %}
+  </div>
+
+  <p>
+    <a href="{% url 'subscribe' contest.pk %}#zapisy" class="btn btn-primary">Zapisy &raquo;</a>
+  </p>
+  <p>
+    <a href="{% url 'all_groups' contest.pk %}#lista" class="btn btn-primary">Lista Zawodników &raquo;</a>
+  </p>
+
+
+
+{% endblock %}
+
+{% block homepageactive %}
+  class='active'
+{% endblock %}
